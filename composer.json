@@ -1,0 +1,30 @@
+{
+  "name": "friends-of-prestashop/melon",
+  "description": "PrestaS***, but better",
+  "authors": [
+    {
+      "name": "Mickaël Andrieu",
+      "email": "mickael.andrieu@solvolabs.com"
+    },
+    {
+      "name": "Friends of PrestaShop Community",
+      "homepage": "https://github.com/friends-of-prestashop/melon/graphs/contributors"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "FOP\\Melon\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.1"
+  },
+  "config": {
+    "prepend-autoloader": false
+  },
+  "license": "GPL-2.0-only",
+  "type": "prestashop-module",
+  "require-dev": {
+    "prestashop/php-dev-tools": "^2.2"
+  }
+}
