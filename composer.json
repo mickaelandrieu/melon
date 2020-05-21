@@ -19,12 +19,12 @@
   "require": {
     "php": "^7.1"
   },
+  "require-dev": {
+    "prestashop/php-dev-tools": "^2.2"
+  },
   "config": {
     "prepend-autoloader": false
   },
   "license": "GPL-2.0-only",
-  "type": "prestashop-module",
-  "require-dev": {
-    "prestashop/php-dev-tools": "^2.2"
-  }
+  "type": "prestashop-module"
 }

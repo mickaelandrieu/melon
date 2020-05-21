@@ -1,15 +1,15 @@
 services:
   # Services for better Grids
-  fop.console.grid_definition.factory:
+  fop.melon.grid_definition.factory:
     class: FOP\Melon\Grid\ObjectModel\ObjectModelDefinitionFactory
 
-  fop.console.grid_data.factory:
+  fop.melon.grid_data.factory:
     class: FOP\Melon\Grid\ObjectModel\ObjectModelDataFactory
 
-  fop.console.grid_object_model.factory:
+  fop.melon.grid_object_model.factory:
     class: FOP\Melon\Grid\ObjectModel\ObjectModelGridFactory
     arguments:
-      - '@fop.console.grid_definition.factory'
-      - '@fop.console.grid_data.factory'
+      - '@fop.melon.grid_definition.factory'
+      - '@fop.melon.grid_data.factory'
       - '@prestashop.core.grid.filter.form_factory'
       - '@prestashop.core.hook.dispatcher'

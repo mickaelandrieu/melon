@@ -12,7 +12,11 @@ use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\DateTimeColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\GridDefinitionFactoryInterface;
 use PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinition;
+use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
+use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollectionInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use PrestaShopBundle\Form\Admin\Type\DatePickerType;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -38,7 +42,7 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         $name = $this->objectModelClass;
 
         $columns = $this->getColumns();
-        $filters = new FilterCollection();
+        $filters = $this->getFilters();
         $actions = new GridActionCollection();
         $bulkActions = new BulkActionCollection();
 
@@ -53,16 +57,13 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         foreach ($objectModelDefinition['fields'] as $name => $field) {
             // guess Column Type from Definition Type
 
+
             switch ($field['type']) {
                 case ObjectModel::TYPE_INT:
                 case ObjectModel::TYPE_STRING:
                 case ObjectModel::TYPE_FLOAT:
                 case ObjectModel::TYPE_HTML:
-                    if ($name === $objectModelDefinition['primary']) {
-                        $type = BulkActionColumn::class;
-                    } else {
                         $type = DataColumn::class;
-                    }
                     break;
                 case ObjectModel::TYPE_DATE:
                     $type = DateTimeColumn::class;
@@ -100,6 +101,41 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         }
 
         return $columnCollection;
+    }
+
+    private function getFilters() : FilterCollectionInterface
+    {
+        $filtersCollection = new FilterCollection();
+        $objectModelDefinition = $this->objectModelClass::$definition;
+
+        foreach ($objectModelDefinition['fields'] as $name => $field) {
+            // guess Column Type from Definition Type
+
+            switch ($field['type']) {
+                case ObjectModel::TYPE_INT:
+                case ObjectModel::TYPE_STRING:
+                case ObjectModel::TYPE_FLOAT:
+                case ObjectModel::TYPE_HTML:
+                    $type = TextType::class;
+
+                    break;
+                case ObjectModel::TYPE_DATE:
+                    $type = DatePickerType::class;
+
+                    break;
+
+                default:
+                    $type = TextType::class;
+            }
+
+            // @todo: manage action columns
+
+            $filter = (new Filter($name, $type))->setAssociatedColumn($name);
+
+            $filtersCollection->add($filter);
+        }
+
+        return $filtersCollection;
     }
 
     public function setObjectModelClass(string $objectModelClass)

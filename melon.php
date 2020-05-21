@@ -18,4 +18,3 @@ class Melon extends Module
         $this->ps_versions_compliancy = array('min' => '1.7.5', 'max' => _PS_VERSION_);
     }
 }
-
