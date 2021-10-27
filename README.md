@@ -1,14 +1,12 @@
 # Melon
 
-Melon is a module for Presta with one main purpose: get the features, improvements
-and bug fixes refused or ignored by the Core team.
-
-Obviously, installing this addon will provide you a better version of PrestaS***.
+Melon is a module for PrestaShop who intent to speed up the generation of grids in 1.7.8.
 
 ## Installation
 
 Get the Zip archive or clone this repository.
-Then use Composer to install setup the Composer autoloader and install the dependencies.
+Then use Composer to install the dependencies.
+Finally, use the console or the back office to install the module.
 
 ## Provided features
 
@@ -21,7 +19,7 @@ Then use Composer to install setup the Composer autoloader and install the depen
 // in a modern Controller
 <?php
 
-use \Book; // in my-module/classes/Book.php which is an Object Model 
+use \Book; // in my-module/classes/Book.php which is an Object Model on in classes root folder
 
 
 class BookController extends FrameworkBundleAdminController
@@ -30,12 +28,13 @@ class BookController extends FrameworkBundleAdminController
     public function indexAction(SearchCriteria $searchCriteria = null)
     {
         $searchCriteria = new SearchCriteria(); // this is not managed "yet"
-        $grid = $this->get('fop.console.grid_object_model.factory')
+        $grid = $this->get('fop.melon.grid_object_model.factory')
             ->setObjectModelClass(Book::class)
+            ->setFields(['name', 'description']) // If not defined, will use all fields
             ->getGrid($searchCriteria)
         ;
 
-        return $this->render('@Modules/test/views/books/index.html.twig', [
+        return $this->render('@Modules/melon/views/grid.html.twig', [
             'grid' => $this->presentGrid($grid),
         ]);
     }
@@ -50,21 +49,9 @@ services:
 # rely on hooks if you need to alter the generated Grid
 ```
 
-```html
-{# views/books/index.html.twig #}
-{% extends '@PrestaShop/Admin/layout.html.twig' %}
-
-{% block content %}
-    <h1>Mes livres</h1>
-   
-    {% include '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': grid} %}
-{% endblock %}
-```
-
 #### Constraints
 
-* Only works for Object models which are located inside modules imho (WIP)
-* Doesn't support the Javascript extensions (WIP)
+* Doesn't support Search yet (WIP)
 
 #### Gains
 
@@ -73,4 +60,4 @@ services:
 
 ### Notes
 
-This module is licensed under GNU GPL v2.
+This module is licensed under MIT license.

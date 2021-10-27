@@ -11,30 +11,12 @@ use Symfony\Component\DependencyInjection\Container;
 
 class ObjectModelGridFactory implements GridFactoryInterface
 {
-    /**
-     * @var ObjectModelDefinitionFactory
-     */
-    private $definitionFactory;
-
-    /**
-     * @var ObjectModelDataFactory
-     */
-    private $dataFactory;
-
-    /**
-     * @var GridFilterFormFactoryInterface
-     */
-    private $filterFormFactory;
-
-    /**
-     * @var HookDispatcherInterface
-     */
-    private $hookDispatcher;
-
-    /**
-     * @var string
-     */
-    private $objectModelClass = null;
+    private ObjectModelDefinitionFactory $definitionFactory;
+    private ObjectModelDataFactory $dataFactory;
+    private GridFilterFormFactoryInterface $filterFormFactory;
+    private HookDispatcherInterface $hookDispatcher;
+    private string $objectModelClass = '';
+    private array $fields = [];
 
     /**
      * @param ObjectModelDefinitionFactory $definitionFactory
@@ -60,17 +42,19 @@ class ObjectModelGridFactory implements GridFactoryInterface
      */
     public function getGrid(SearchCriteriaInterface $searchCriteria)
     {
-        if ($this->objectModelClass === null) {
+        if (empty($this->objectModelClass)) {
             throw new \PrestaShopException('Set the object model using ``setObjectModelClass`` function.');
         }
 
         $definition = $this->definitionFactory
             ->setObjectModelClass($this->objectModelClass)
+            ->setFields($this->getFields())
             ->getDefinition()
         ;
 
         $data = $this->dataFactory
             ->setObjectModelClass($this->objectModelClass)
+            ->setFields($this->getFields())
             ->getData($searchCriteria);
 
         $this->hookDispatcher->dispatchWithParameters('action' . Container::camelize($definition->getId()) . 'GridDataModifier', [
@@ -93,5 +77,17 @@ class ObjectModelGridFactory implements GridFactoryInterface
         $this->objectModelClass = $objectModelClass;
 
         return $this;
+    }
+
+    public function setFields(array $fields = [])
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
     }
 }

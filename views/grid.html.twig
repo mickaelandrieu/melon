@@ -1,0 +1,12 @@
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  {% include '@PrestaShop/Admin/Common/Grid/grid_panel.html.twig' with {'grid': grid} %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('../modules/melon/views/js/grid.js') }}"></script>
+{% endblock %}

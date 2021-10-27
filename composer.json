@@ -1,6 +1,6 @@
 {
   "name": "friends-of-prestashop/melon",
-  "description": "PrestaS***, but better",
+  "description": "An experimentation to speed up the generation of grids",
   "authors": [
     {
       "name": "Mickaël Andrieu",
@@ -25,6 +25,6 @@
   "config": {
     "prepend-autoloader": false
   },
-  "license": "GPL-2.0-only",
+  "license": "MIT",
   "type": "prestashop-module"
 }

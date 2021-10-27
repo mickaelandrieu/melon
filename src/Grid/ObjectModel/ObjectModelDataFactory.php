@@ -10,10 +10,9 @@ use PrestaShopCollection;
 
 class ObjectModelDataFactory implements GridDataFactoryInterface
 {
-    /**
-     * @var string
-     */
-    private $objectModelClass = null;
+    private string $objectModelClass = '';
+
+    private array $fields = [];
 
     /**
      * {@inheritdoc}
@@ -22,7 +21,7 @@ class ObjectModelDataFactory implements GridDataFactoryInterface
      */
     public function getData(SearchCriteriaInterface $searchCriteria)
     {
-        if ($this->objectModelClass === null) {
+        if (empty($this->objectModelClass)) {
             throw new \PrestaShopException('Set the object model using ``setObjectModelClass`` function.');
         }
 
@@ -34,7 +33,8 @@ class ObjectModelDataFactory implements GridDataFactoryInterface
             $vars = get_object_vars($objectModel);
             $objectModelArray = [];
             foreach ($vars as $key => $value) {
-                $objectModelArray[ltrim($key, '_')] = $value;
+                // @todo: comment gérer proprement les champs traduisibles ?
+                $objectModelArray[ltrim($key, '_')] = is_array($value) ? current($value) : $value;
             }
 
             $resultsAsArray[] = $objectModelArray;
@@ -54,5 +54,17 @@ class ObjectModelDataFactory implements GridDataFactoryInterface
         $this->objectModelClass = $objectModelClass;
 
         return $this;
+    }
+
+    public function setFields(array $fields)
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
+
+    public function getFields()
+    {
+        return $this->fields;
     }
 }
