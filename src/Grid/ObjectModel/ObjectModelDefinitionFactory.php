@@ -19,6 +19,7 @@ use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollectionInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use FOP\Melon\Grid\ObjectModel\ObjectModelAwarable;
 use PrestaShopBundle\Form\Admin\Type\DatePickerType;
+use FOP\Melon\Grid\Column\Type\HTMLColumn;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -63,8 +64,10 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
                 case ObjectModel::TYPE_INT:
                 case ObjectModel::TYPE_STRING:
                 case ObjectModel::TYPE_FLOAT:
+                    $type = DataColumn::class;
+                    break;
                 case ObjectModel::TYPE_HTML:
-                        $type = DataColumn::class;
+                    $type = HTMLColumn::class;
                     break;
                 case ObjectModel::TYPE_DATE:
                     $type = DateTimeColumn::class;
