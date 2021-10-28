@@ -40,8 +40,8 @@ class BookController extends FrameworkBundleAdminController
 # config/services.yml
 services:
 
-# no need to create your own services and or classes <3
-# rely on hooks if you need to alter the generated Grid
+# No need to create your own services or classes <3
+# You must rely on hooks if you need to alter the generated Grid (See PrestaShop devdocs)
 ```
 
 > Look at docs folder for a complete exemple of a module.
@@ -53,8 +53,8 @@ services:
 
 #### Gains
 
-* Average time to create a complete Grid from an Object Model: 1 or 2 days (depending on how good you are with the 1.7 modern stuff)
-* Average time with my feature: how many minutes do you need to copy paste and adapt my example ? 👍 
+* Average time to create a complete Grid from an Object Model: Days (depending on how good you are with the 1.7 modern stuff)
+* Average time using Melon: How many minutes do you need to copy/paste and adapt the provided example ? 👍 
 
 ### Notes
 
