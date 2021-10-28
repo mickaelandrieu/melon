@@ -4,6 +4,7 @@ namespace FOP\Melon\Grid\ObjectModel;
 
 use ObjectModel;
 use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\BulkActionCollection;
+use PrestaShop\PrestaShop\Core\Grid\Action\ViewOptionsCollection;
 use PrestaShop\PrestaShop\Core\Grid\Action\GridActionCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollectionInterface;
@@ -16,6 +17,7 @@ use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollectionInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOP\Melon\Grid\ObjectModel\ObjectModelAwarable;
 use PrestaShopBundle\Form\Admin\Type\DatePickerType;
 use Symfony\Component\Finder\Finder;
 
@@ -24,17 +26,13 @@ use Symfony\Component\Finder\Finder;
  */
 class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
 {
-    /**
-     * @var string
-     */
-    private $objectModelClass = null;
-
+    use ObjectModelAwarable;
     /**
      * {@inheritdoc}
      */
     public function getDefinition()
     {
-        if ($this->objectModelClass === null) {
+        if (empty($this->objectModelClass)) {
             throw new \PrestaShopException('Set the object model using ``setObjectModelClass`` function.');
         }
 
@@ -46,7 +44,7 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         $actions = new GridActionCollection();
         $bulkActions = new BulkActionCollection();
 
-        return new GridDefinition($id, $name, $columns, $filters, $actions, $bulkActions);
+        return new GridDefinition($id, $name, $columns, $filters, $actions, $bulkActions, new ViewOptionsCollection());
     }
 
     private function getColumns(): ColumnCollectionInterface
@@ -57,6 +55,9 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         foreach ($objectModelDefinition['fields'] as $name => $field) {
             // guess Column Type from Definition Type
 
+            if (!empty($this->fields) && !in_array($name, $this->fields, true)) {
+                continue;
+            }
 
             switch ($field['type']) {
                 case ObjectModel::TYPE_INT:
@@ -111,6 +112,10 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         foreach ($objectModelDefinition['fields'] as $name => $field) {
             // guess Column Type from Definition Type
 
+            if (!empty($this->fields) && !in_array($name, $this->fields, true)) {
+                continue;
+            }
+
             switch ($field['type']) {
                 case ObjectModel::TYPE_INT:
                 case ObjectModel::TYPE_STRING:
@@ -142,7 +147,7 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
     {
         // Have to patch this fuckin PS autoloader !
         $finder = new Finder();
-        $finder->name($objectModelClass . '.php')->files()->in(_PS_MODULE_DIR_);
+        $finder->name($objectModelClass . '.php')->files()->in([_PS_MODULE_DIR_, _PS_ROOT_DIR_.'/classes/']);
 
         foreach ($finder as $file) {
             require_once $file->getRealPath();
