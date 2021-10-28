@@ -19,7 +19,6 @@ use \Book; // in my-module/classes/Book.php which is an Object Model on in class
 
 class BookController extends FrameworkBundleAdminController
 {
-    // liste des livres
     public function indexAction(SearchCriteria $searchCriteria = null)
     {
         $searchCriteria = new SearchCriteria(); // this is not managed "yet"
@@ -45,9 +44,12 @@ services:
 # rely on hooks if you need to alter the generated Grid
 ```
 
+> Look at docs folder for a complete exemple of a module.
+
 #### Constraints
 
 * Doesn't support Search yet (WIP)
+* Should enable CRUD actions by default without any generation of code (WIP)
 
 #### Gains
 
