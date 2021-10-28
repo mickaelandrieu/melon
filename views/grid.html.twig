@@ -8,5 +8,6 @@
 
 {% block javascripts %}
   {{ parent() }}
+  const grid_id = {{ grid['id'] }};
   <script src="{{ asset('../modules/melon/views/js/grid.js') }}"></script>
 {% endblock %}

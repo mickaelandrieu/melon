@@ -17,6 +17,7 @@ use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollectionInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOP\Melon\Grid\ObjectModel\ObjectModelAwarable;
 use PrestaShopBundle\Form\Admin\Type\DatePickerType;
 use Symfony\Component\Finder\Finder;
 
@@ -25,9 +26,7 @@ use Symfony\Component\Finder\Finder;
  */
 class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
 {
-    private string $objectModelClass = '';
-    private array $fields = [];
-
+    use ObjectModelAwarable;
     /**
      * {@inheritdoc}
      */
@@ -157,17 +156,5 @@ class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
         $this->objectModelClass = $objectModelClass;
 
         return $this;
-    }
-
-    public function setFields(array $fields = [])
-    {
-        $this->fields = $fields;
-
-        return $this;
-    }
-
-    public function getFields()
-    {
-        return $this->fields;
     }
 }

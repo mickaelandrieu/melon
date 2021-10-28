@@ -1,5 +1,5 @@
 {
-  "name": "friends-of-prestashop/melon",
+  "name": "friends-of-presta/melon",
   "description": "An experimentation to speed up the generation of grids",
   "authors": [
     {
@@ -17,14 +17,20 @@
     }
   },
   "require": {
-    "php": "^7.1"
+    "php": "^7.3|^8.0",
+    "symfony/finder": "^4.3"
   },
   "require-dev": {
-    "prestashop/php-dev-tools": "^2.2"
+    "prestashop/php-dev-tools": "^4.1"
   },
   "config": {
     "prepend-autoloader": false
   },
   "license": "MIT",
-  "type": "prestashop-module"
+  "type": "prestashop-module",
+  "extra": {
+    "symfony": {
+      "require": "^4.3"
+    }
+  }
 }

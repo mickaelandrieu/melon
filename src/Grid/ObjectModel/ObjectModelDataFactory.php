@@ -6,10 +6,12 @@ use PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface;
 use PrestaShop\PrestaShop\Core\Grid\Data\GridData;
 use PrestaShop\PrestaShop\Core\Grid\Record\RecordCollection;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
+use FOP\Melon\Grid\ObjectModel\ObjectModelAwarable;
 use PrestaShopCollection;
 
 class ObjectModelDataFactory implements GridDataFactoryInterface
 {
+    use ObjectModelAwarable;
     private string $objectModelClass = '';
 
     private array $fields = [];
@@ -47,24 +49,5 @@ class ObjectModelDataFactory implements GridDataFactoryInterface
         ob_end_clean();
 
         return new GridData($recordsCollection, $recordsTotal, $query);
-    }
-
-    public function setObjectModelClass(string $objectModelClass)
-    {
-        $this->objectModelClass = $objectModelClass;
-
-        return $this;
-    }
-
-    public function setFields(array $fields)
-    {
-        $this->fields = $fields;
-
-        return $this;
-    }
-
-    public function getFields()
-    {
-        return $this->fields;
     }
 }

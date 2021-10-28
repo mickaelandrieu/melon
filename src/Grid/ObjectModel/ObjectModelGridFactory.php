@@ -15,8 +15,6 @@ class ObjectModelGridFactory implements GridFactoryInterface
     private ObjectModelDataFactory $dataFactory;
     private GridFilterFormFactoryInterface $filterFormFactory;
     private HookDispatcherInterface $hookDispatcher;
-    private string $objectModelClass = '';
-    private array $fields = [];
 
     /**
      * @param ObjectModelDefinitionFactory $definitionFactory
@@ -70,24 +68,5 @@ class ObjectModelGridFactory implements GridFactoryInterface
             $searchCriteria,
             $filterForm
         );
-    }
-
-    public function setObjectModelClass(string $objectModelClass)
-    {
-        $this->objectModelClass = $objectModelClass;
-
-        return $this;
-    }
-
-    public function setFields(array $fields = [])
-    {
-        $this->fields = $fields;
-
-        return $this;
-    }
-
-    public function getFields()
-    {
-        return $this->fields;
     }
 }
