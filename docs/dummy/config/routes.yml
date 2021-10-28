@@ -1,0 +1,7 @@
+grid_index:
+    path: grid-exemple
+    methods: [GET]
+    defaults:
+        _controller: 'FOP\Dummy\Controller\Admin\AppController::gridAction'
+        _legacy_controller: 'AdminDummyAppClass'
+        _legacy_link: AdminDummyAppClass

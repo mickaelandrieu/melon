@@ -30,6 +30,7 @@ class BookController extends FrameworkBundleAdminController
         ;
 
         return $this->render('@Modules/melon/views/grid.html.twig', [
+            'title' => 'Grid title',
             'grid' => $this->presentGrid($grid),
         ]);
     }
