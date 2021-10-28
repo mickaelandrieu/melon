@@ -11,20 +11,20 @@ Finally, use the console or the back office to install the module.
 ### Easier creation of moderns grids
 
 ```php
-// in a modern Controller
 <?php
 
-use \Book; // in my-module/classes/Book.php which is an Object Model on in classes root folder
-
+use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
+use \Book;
 
 class BookController extends FrameworkBundleAdminController
 {
     public function indexAction(SearchCriteria $searchCriteria = null)
     {
-        $searchCriteria = new SearchCriteria(); // this is not managed "yet"
+        $searchCriteria = new SearchCriteria(); // This is not managed "yet"
         $grid = $this->get('fop.melon.grid_object_model.factory')
             ->setObjectModelClass(Book::class)
-            ->setFields(['name', 'description']) // If not defined, will use all fields
+            ->setFields(['name', 'description']) // If not defined, it will use all the fields
             ->getGrid($searchCriteria)
         ;
 

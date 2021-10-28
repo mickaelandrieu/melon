@@ -3,9 +3,10 @@
 namespace FOP\Dummy\Controller\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use Symfony\Component\HttpFoundation\Response;
 
-use DummyModel;
+use \DummyModel;
 
 class AppController extends FrameworkBundleAdminController
 {
