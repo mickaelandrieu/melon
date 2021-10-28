@@ -1,5 +1,7 @@
 <?php
 
+require_once "vendor/autoload.php";
+
 class dummy extends Module
 {
     public function __construct()

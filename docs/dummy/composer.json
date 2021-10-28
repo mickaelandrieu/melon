@@ -1,0 +1,27 @@
+{
+    "name": "friends-of-presta/dummy",
+    "description": "Exemple module",
+    "authors": [
+        {
+        "name": "Mickaël Andrieu",
+        "email": "mickael.andrieu@solvolabs.com"
+        },
+        {
+        "name": "Friends of Presta Community",
+        "homepage": "https://github.com/friends-of-presta/melon/graphs/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FOP\\Dummy\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "config": {
+        "prepend-autoloader": false
+    },
+    "license": "MIT",
+    "type": "prestashop-module"
+}
