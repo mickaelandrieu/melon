@@ -8,6 +8,8 @@ Get the Zip archive or clone this repository.
 Then use Composer to install the dependencies.
 Finally, use the console or the back office to install the module.
 
+> This module is compatible with PHP 7.4 and 8.0.
+
 ### Easier creation of moderns grids
 
 ```php
