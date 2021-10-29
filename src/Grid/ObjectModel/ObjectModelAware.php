@@ -5,7 +5,7 @@ namespace FOP\Melon\Grid\ObjectModel;
 /**
  * Set the Object Model class name and its fields
  */
-trait ObjectModelAwarable
+trait ObjectModelAware
 {
     private string $objectModelClass = '';
 

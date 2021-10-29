@@ -17,7 +17,6 @@ use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollectionInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use FOP\Melon\Grid\ObjectModel\ObjectModelAwarable;
 use PrestaShopBundle\Form\Admin\Type\DatePickerType;
 use FOP\Melon\Grid\Column\Type\HTMLColumn;
 use Symfony\Component\Finder\Finder;
@@ -27,7 +26,8 @@ use Symfony\Component\Finder\Finder;
  */
 class ObjectModelDefinitionFactory implements GridDefinitionFactoryInterface
 {
-    use ObjectModelAwarable;
+    use ObjectModelAware;
+
     /**
      * {@inheritdoc}
      */

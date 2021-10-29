@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Container;
 
 class ObjectModelGridFactory implements GridFactoryInterface
 {
+    use ObjectModelAware;
     private ObjectModelDefinitionFactory $definitionFactory;
     private ObjectModelDataFactory $dataFactory;
     private GridFilterFormFactoryInterface $filterFormFactory;
