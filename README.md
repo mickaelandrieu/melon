@@ -17,7 +17,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
 use DummyObjectModel;
 
-class BookController extends FrameworkBundleAdminController
+class AppController extends FrameworkBundleAdminController
 {
     public function indexAction()
     {
@@ -51,7 +51,7 @@ your_route_name:
   methods: [GET]
   defaults:
     # of course, the path to the controller needs to be adapted
-    _controller: 'FOP\Test\Controller\BookController::indexAction'
+    _controller: 'FOP\Test\Controller\AppController::indexAction'
 ```
 
 > Look at docs folder for a complete example of a module.
