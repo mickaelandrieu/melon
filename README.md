@@ -15,17 +15,16 @@ Finally, use the console or the back office to install the module.
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria;
-use \Book;
+use DummyObjectModel;
 
 class BookController extends FrameworkBundleAdminController
 {
-    public function indexAction(SearchCriteria $searchCriteria = null)
+    public function indexAction()
     {
-        $searchCriteria = new SearchCriteria(); // This is not managed "yet"
         $grid = $this->get('fop.melon.grid_object_model.factory')
-            ->setObjectModelClass(Book::class)
+            ->setObjectModelClass(DummyObjectModel::class)
             ->setFields(['name', 'description']) // If not defined, it will use all the fields
-            ->getGrid($searchCriteria)
+            ->getGrid(new SearchCriteria()) // This is not managed "yet"
         ;
 
         return $this->render('@Modules/melon/views/grid.html.twig', [
@@ -42,9 +41,20 @@ services:
 
 # No need to create your own services or classes <3
 # You must rely on hooks if you need to alter the generated Grid (See PrestaShop devdocs)
+# Create this file is not required
 ```
 
-> Look at docs folder for a complete exemple of a module.
+```yaml
+# config/routes.yml
+your_route_name:
+  path: whatever
+  methods: [GET]
+  defaults:
+    # of course, the path to the controller needs to be adapted
+    _controller: 'FOP\Test\Controller\BookController::indexAction'
+```
+
+> Look at docs folder for a complete example of a module.
 
 #### Constraints
 
