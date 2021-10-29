@@ -2,6 +2,11 @@
 
 Melon is a module for PrestaShop who intent to speed up the generation of grids in 1.7.8.
 
+Also, it allows you to use your Object models as material to feed your grids : as the Object Models will stay for years from now in the Core,
+it is not required for you to create Doctrine Entities and Repositories.
+
+> Support of Doctrine Entities is planned ... if I have enough coffee and passion for the subject : contributions are welcome !
+
 ## Installation
 
 Get the Zip archive or clone this repository.
